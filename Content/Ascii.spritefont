@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteFont xmlns="http://www.monogame.net/Content/2010">
+    <FontName>Consolas</FontName>
+    <Size>16</Size>
+    <Spacing>0</Spacing>
+    <UseKerning>false</UseKerning>
+    <CharacterRegions>
+        <CharacterRegion>
+            <Start> </Start>
+            <End>~</End>
+        </CharacterRegion>
+    </CharacterRegions>
+</SpriteFont>

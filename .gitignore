@@ -1,0 +1,39 @@
+# .NET Core
+bin/
+obj/
+
+# User-specific files
+.vs/
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# MonoGame
+/Content/Debug/
+/Content/Release/
+
+# Rider / JetBrains IDE
+.idea/
+
+# User-specific files for Visual Studio
+.vs2019/
+.vs2017/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Log files
+*.log
+
+# Tye (temporary)
+.tye/
+
+# NUnit test results
+TestResults/
+.DS_Store
