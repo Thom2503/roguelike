@@ -34,7 +34,7 @@ public class Actor {
 		this._health = maxHealth;
 	}
 
-	public void Perform(GameAction action) => action.Execute(this);
+	public void Perform(GameAction action) => action.Execute();
 
 	public virtual bool CanMove(int x, int y) => true;
 	public virtual bool CanMove(Actor actor) => true;
