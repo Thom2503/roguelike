@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using roguelike.render;
+using roguelike.player;
 
 namespace roguelike;
 
@@ -11,12 +12,14 @@ public class Engine : Game
     public SpriteBatch spriteBatch { get; private set; }
 
     private Map map;
+    private Player player;
 
     public Engine()
     {
         graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        player = new Player("Gamer", 100, 1, 1);
     }
 
     protected override void Initialize()
@@ -55,6 +58,7 @@ public class Engine : Game
                 };
             }
         }
+        tiles[player.x, player.y] = player.tile;
 
         map = new Map(tiles);
         map.LoadContent(this);

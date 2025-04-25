@@ -1,6 +1,7 @@
 using System;
 using roguelike.items;
 using roguelike.action;
+using roguelike.render;
 
 namespace roguelike.core;
 
@@ -9,14 +10,28 @@ public class Actor {
 	public int y;
 	public readonly string name;
 	public Inventory inventory;
-	public int maxHealth { get; }
+	public readonly int maxHealth; 
+	private int _health;
 	public int health {
 		get {
-			return health;
+			return _health;
 		}
 		private set {
-			health = Math.Clamp(value, 0, maxHealth);
+			_health = Math.Clamp(value, 0, maxHealth);
 		}
+	}
+	public AsciiTile tile = null;
+
+	public Actor(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	public Actor(string name, int maxHealth, int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.name = name;
+		this.maxHealth = maxHealth;
+		this._health = maxHealth;
 	}
 
 	public void Perform(GameAction action) => action.Execute(this);
