@@ -21,4 +21,7 @@ public class Actor {
 
 	public void Perform(GameAction action) => action.Execute(this);
 
+	public virtual bool CanMove(int x, int y) => true;
+	public virtual bool CanMove(Actor actor) => true;
+
 }
