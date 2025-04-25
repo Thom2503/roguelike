@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,10 +8,10 @@ public class Map {
     private const int _tileHeight = 16;
     private AsciiTile[,] _tiles;
 
-    private Texture2D blankTexture;
-    private Texture2D fontTexture;
+    private Texture2D _blankTexture;
+    private Texture2D _fontTexture;
 
-    private bool texturesLoaded = false;
+    private bool _texturesLoaded = false;
 
     public Map() {}
     public Map(AsciiTile[,] tiles) {
@@ -22,10 +19,10 @@ public class Map {
     }
 
     public void LoadContent(Engine engine) {
-        if (!texturesLoaded) {
-            blankTexture = Texture.CreateBlankTexture(engine);
-            fontTexture = Texture.CreateFontTexture(engine);
-            texturesLoaded = true;
+        if (!_texturesLoaded) {
+            _blankTexture = Texture.CreateBlankTexture(engine);
+            _fontTexture = Texture.CreateFontTexture(engine);
+            _texturesLoaded = true;
         }
     }
 
@@ -41,8 +38,8 @@ public class Map {
                 Rectangle destRect = new Rectangle(x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight);
                 Rectangle srcRect = GetCharSourceRect(tile.Character);
 
-                engine.spriteBatch.Draw(blankTexture, destRect, tile.Background);
-                engine.spriteBatch.Draw(fontTexture, destRect, srcRect, tile.Foreground);
+                engine.spriteBatch.Draw(_blankTexture, destRect, tile.Background);
+                engine.spriteBatch.Draw(_fontTexture, destRect, srcRect, tile.Foreground);
             }
         }
 
@@ -51,7 +48,7 @@ public class Map {
 
     private Rectangle GetCharSourceRect(char c) {
         int index = (int)c;
-        int cols = fontTexture.Width / _tileWidth;
+        int cols = _fontTexture.Width / _tileWidth;
         int x = (index % cols) * _tileWidth;
         int y = (index / cols) * _tileHeight;
         return new Rectangle(x, y, _tileWidth, _tileHeight);

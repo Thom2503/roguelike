@@ -42,10 +42,10 @@ public class Engine : Game
     {
         base.Draw(gameTime);
 
-        AsciiTile[,] tiles = new AsciiTile[50, 25];
+        AsciiTile[,] tiles = new AsciiTile[100, 50];
 
-        for (int y = 0; y < 25; y++) {
-            for (int x = 0; x < 50; x++) {
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 bool isBorder = x == 0 || y == 0 || x == 9 || y == 4;
 
                 tiles[x, y] = new AsciiTile {
