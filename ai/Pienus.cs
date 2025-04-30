@@ -10,7 +10,7 @@ public class Pienus : Actor {
 	public Pienus(string name, int maxHealth, int x, int y) : base(name, maxHealth, x, y) {
 		inventory = new Inventory();
 		tile = new AsciiTile {
-			Character = 'π',
+			Character = 'ã',
 			Foreground = Color.Yellow,
 			Background = Color.Black,
 		};

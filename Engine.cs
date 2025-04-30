@@ -16,6 +16,7 @@ public class Engine : Game {
     public SpriteBatch SpriteBatch { get; private set; }
     public Queue<GameAction> aiActions;
     public Queue<GameAction> playerActions;
+    public AsciiTile[,] tiles = new AsciiTile[75, 30];
 
     private Map map;
     private readonly Player player;
@@ -75,8 +76,6 @@ public class Engine : Game {
     protected override void Draw(GameTime gameTime) {
         base.Draw(gameTime);
 
-        AsciiTile[,] tiles = new AsciiTile[75, 30];
-
         for (int y = 0; y < 30; y++) {
             for (int x = 0; x < 75; x++) {
                 bool isBorder = x == 0 || y == 0 || x == 75 || y == 30;
@@ -88,16 +87,20 @@ public class Engine : Game {
                 };
             }
         }
-        if (player.x >= 0 && player.x < 75 && player.y >= 0 && player.y < 30)
-            tiles[player.x, player.y] = player.tile;
-        foreach (var monster in monsters) {
-            if (monster.x >= 0 && monster.x < 50 && monster.y >= 0 && monster.y < 20)
-                tiles[monster.x, monster.y] = monster.tile;
-        }
+
+        DrawActors();
 
         map = new Map(tiles);
         map.LoadContent(this);
         map.Draw(gameTime, this);
+    }
+
+    private void DrawActors() {
+        foreach (Actor actor in gameLoop.GetActors()) {
+             if (actor.x >= 0 && actor.x < 75 && actor.y >= 0 && actor.y < 30) {
+                tiles[actor.x, actor.y] = actor.tile;
+             }
+        }
     }
 
     void WindowClientSizeChanged(object sender, EventArgs e) {}

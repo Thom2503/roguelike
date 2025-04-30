@@ -17,4 +17,6 @@ public class GameLoop {
 		action.Execute();
 		_currentActor = (_currentActor + 1) % _actors.Count;
 	}
+
+	public IEnumerable<Actor> GetActors() => _actors;
 }
