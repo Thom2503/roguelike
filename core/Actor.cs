@@ -21,6 +21,7 @@ public class Actor {
 		}
 	}
 	public AsciiTile tile = null;
+	public GameAction nextAction = null;
 
 	public Actor(int x, int y) {
 		this.x = x;
@@ -35,6 +36,12 @@ public class Actor {
 	}
 
 	public void Perform(GameAction action) => action.Execute();
+
+	public virtual GameAction GetGameAction() {
+		GameAction action = nextAction;
+		nextAction = null;
+		return action;
+	}
 
 	public virtual bool CanMove(int x, int y) => true;
 	public virtual bool CanMove(Actor actor) => true;

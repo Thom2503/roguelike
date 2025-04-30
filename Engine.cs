@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using roguelike.action;
 using roguelike.ai;
 using System;
+using roguelike.core;
 
 namespace roguelike;
 
@@ -22,6 +23,8 @@ public class Engine : Game
     private List<Monster> monsters;
     private double actionTimer;
     private double actionInterval = 0.1;
+    private GameLoop gameLoop;
+    private KeyboardState _prevKeyboardState;
 
     public Engine()
     {
@@ -35,12 +38,18 @@ public class Engine : Game
         aiActions = new Queue<GameAction>();
         monsters = new List<Monster>() {
             new Monster("Mummy", 20, 4, 5),
+            new Monster("Mummy2", 20, 6, 8),
         };
     }
 
     protected override void Initialize()
     {
         map = new Map();
+        gameLoop = new GameLoop();
+        gameLoop.AddActor(player);
+        foreach (Actor monster in monsters) {
+            gameLoop.AddActor(monster);
+        }
         base.Initialize();
     }
 
@@ -58,37 +67,11 @@ public class Engine : Game
         if (actionTimer < actionInterval) return;
 
         var keyboardState = Keyboard.GetState();
-
-        if (keyboardState.IsKeyDown(Keys.Up)) {
-            this.playerActions.Enqueue(new MoveAction(0, -1, player));
-        }
-        else if (keyboardState.IsKeyDown(Keys.Down)) {
-            this.playerActions.Enqueue(new MoveAction(0, 1, player));
-        }
-        else if (keyboardState.IsKeyDown(Keys.Left)) {
-            this.playerActions.Enqueue(new MoveAction(-1, 0, player));
-        }
-        else if (keyboardState.IsKeyDown(Keys.Right)) {
-            this.playerActions.Enqueue(new MoveAction(1, 0, player));
-        }
-
-        foreach (var monster in monsters) {
-            if (monster.hasMoved == true) continue;
-            (int x, int y) = monster.GetRandomMovement();
-            this.aiActions.Enqueue(new MoveAction(x, y, monster));
-            monster.hasMoved = false;
-        }
+        player.SetInput(keyboardState, _prevKeyboardState);
+        _prevKeyboardState = keyboardState;
 
         actionTimer = 0;
-
-        if (this.playerActions.Count != 0) {
-            GameAction action = this.playerActions.Dequeue();
-            action.Execute();
-        }
-        if (this.aiActions.Count != 0) {
-            GameAction action = this.aiActions.Dequeue();
-            action.Execute();
-        }
+        gameLoop.Process();
 
         base.Update(gameTime);
     }

@@ -4,6 +4,7 @@ using roguelike.render;
 using Microsoft.Xna.Framework;
 using System;
 using System.Security.Cryptography;
+using roguelike.action;
 
 namespace roguelike.ai;
 
@@ -24,6 +25,11 @@ public class Monster : Actor {
 
 	public override bool CanMove(Actor actor) {
 		return base.CanMove(actor);
+	}
+
+	public override GameAction GetGameAction() {
+		(int dx, int dy) = GetRandomMovement();
+		return new MoveAction(dx, dy, this);
 	}
 
 	public Tuple<int, int> GetRandomMovement() {
