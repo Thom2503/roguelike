@@ -12,7 +12,7 @@ public class Actor {
 	public Inventory inventory;
 	public readonly int maxHealth; 
 	private int _health;
-	public int health {
+	public int Health {
 		get {
 			return _health;
 		}
@@ -35,7 +35,7 @@ public class Actor {
 		this._health = maxHealth;
 	}
 
-	public void Perform(GameAction action) => action.Execute();
+	public static void Perform(GameAction action) => action.Execute();
 
 	public virtual GameAction GetGameAction() {
 		GameAction action = nextAction;

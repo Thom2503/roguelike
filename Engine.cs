@@ -13,24 +13,24 @@ namespace roguelike;
 
 public class Engine : Game
 {
-    public GraphicsDeviceManager graphics { get; }
-    public SpriteBatch spriteBatch { get; private set; }
+    public GraphicsDeviceManager Graphics { get; }
+    public SpriteBatch SpriteBatch { get; private set; }
     public Queue<GameAction> aiActions;
     public Queue<GameAction> playerActions;
 
     private Map map;
-    private Player player;
-    private List<Monster> monsters;
+    private readonly Player player;
+    private readonly List<Monster> monsters;
     private double actionTimer;
-    private double actionInterval = 0.1;
+    private readonly double actionInterval = 0.1;
     private GameLoop gameLoop;
     private KeyboardState _prevKeyboardState;
 
     public Engine()
     {
-        this.Window.AllowUserResizing = true;
-        this.Window.ClientSizeChanged += new EventHandler<EventArgs>(WindowClientSizeChanged);
-        graphics = new GraphicsDeviceManager(this);
+        Window.AllowUserResizing = true;
+        Window.ClientSizeChanged += new EventHandler<EventArgs>(WindowClientSizeChanged);
+        Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         player = new Player("Gamer", 100, 1, 1);
@@ -55,7 +55,7 @@ public class Engine : Game
 
     protected override void LoadContent()
     {
-        spriteBatch = new SpriteBatch(GraphicsDevice);
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
     protected override void Update(GameTime gameTime)

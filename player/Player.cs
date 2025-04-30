@@ -9,9 +9,10 @@ namespace roguelike.player;
 
 public class Player : Actor {
 	private KeyboardState current, previous;
+
 	public Player(string name, int maxHealth, int x, int y) : base(name, maxHealth, x, y) {
-		this.inventory = new Inventory();
-		this.tile = new AsciiTile {
+		inventory = new Inventory();
+		tile = new AsciiTile {
 			Character = '@',
 			Foreground = Color.Purple,
 			Background = Color.Black,
@@ -28,7 +29,7 @@ public class Player : Actor {
 
 	public void SetInput(KeyboardState current, KeyboardState prev) {
 		this.current = current;
-		this.previous = prev;
+		previous = prev;
 	}
 
 	private bool IsKeyPressed(Keys key) => current.IsKeyDown(key) && !previous.IsKeyDown(key);

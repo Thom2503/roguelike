@@ -3,7 +3,6 @@ using roguelike.items;
 using roguelike.render;
 using Microsoft.Xna.Framework;
 using System;
-using System.Security.Cryptography;
 using roguelike.action;
 
 namespace roguelike.ai;
@@ -11,8 +10,8 @@ namespace roguelike.ai;
 public class Monster : Actor {
 	public bool hasMoved = true;
 	public Monster(string name, int maxHealth, int x, int y) : base(name, maxHealth, x, y) {
-		this.inventory = new Inventory();
-		this.tile = new AsciiTile {
+		inventory = new Inventory();
+		tile = new AsciiTile {
 			Character = 'M',
 			Foreground = Color.Red,
 			Background = Color.Black,
@@ -37,8 +36,8 @@ public class Monster : Actor {
 		int moveX = rnd.Next(-1, 2);
 		int moveY = rnd.Next(-1, 2);
 
-		int newX = this.x + moveX;
-		int newY = this.y + moveY;
+		int newX = x + moveX;
+		int newY = y + moveY;
 		if (newX > 20)  newX = this.x;
 		if (newX > 20)  newY = this.y;
 
