@@ -21,6 +21,7 @@ public class Engine : Game {
     private Map map;
     private readonly Player player;
     private readonly List<Monster> monsters;
+    private readonly Pienus pienus;
     private double actionTimer;
     private readonly double actionInterval = 0.1;
     private GameLoop gameLoop;
@@ -33,6 +34,7 @@ public class Engine : Game {
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         player = new Player("Gamer", 100, 2, 2);
+        pienus = new Pienus("Pienus", 100, player.x - 1, player.y - 1);
         playerActions = new Queue<GameAction>();
         aiActions = new Queue<GameAction>();
         monsters = new List<Monster>() {
@@ -45,7 +47,7 @@ public class Engine : Game {
         map = new Map();
         gameLoop = new GameLoop();
         gameLoop.AddActor(player);
-        gameLoop.AddActor(new Pienus("Pienus", 100, player.x - 1, player.y - 1));
+        gameLoop.AddActor(pienus);
         foreach (Actor monster in monsters) {
             gameLoop.AddActor(monster);
         }
@@ -65,6 +67,7 @@ public class Engine : Game {
 
         var keyboardState = Keyboard.GetState();
         player.SetInput(keyboardState, _prevKeyboardState);
+        pienus.SetPlayerCoordinates(player.x, player.y);
         _prevKeyboardState = keyboardState;
 
         actionTimer = 0;
