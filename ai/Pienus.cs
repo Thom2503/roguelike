@@ -3,6 +3,7 @@ using roguelike.items;
 using roguelike.render;
 using Microsoft.Xna.Framework;
 using roguelike.action;
+using System;
 
 namespace roguelike.ai;
 
@@ -18,7 +19,14 @@ public class Pienus : Actor {
 	}
 
 	public override bool CanMove(int x, int y) {
-		return base.CanMove(x, y);
+		if (x == playerX && y == playerY)
+			return false;
+	
+		foreach (var actor in GameLoop.instance.GetActors()) {
+			if (actor != this && actor.x == x && actor.y == y)
+				return false;
+		}
+		return true;
 	}
 
 	public override bool CanMove(Actor actor) {
@@ -26,17 +34,21 @@ public class Pienus : Actor {
 	}
 
 	public override GameAction GetGameAction() {
-		int dx = 0, dy = 0;
-		if (playerX > this.x) dx = 1;
-		else if (playerX < this.x) dx = -1;
-		if (playerY > this.y) dy = 1;
-		else if (playerY < this.y) dy = -1;
+		int dx = playerX - this.x;
+		int dy = playerY - this.y;
 
-		if (this.x + dx == playerX && this.y + dy == playerY)
-			return null;
+		int stepX = Math.Sign(dx);
+		int stepY = Math.Sign(dy);
+		if (dx != 0 && CanMove(this.x + stepX, this.y)) {
+			return new MoveAction(stepX, 0, this);
+		}
 
-		return new MoveAction(dx, dy, this);
+		if (dy != 0 && CanMove(this.x, this.y + stepY)) {
+			return new MoveAction(0, stepY, this);
+		}
+		return null;
 	}
+
 
 	public void SetPlayerCoordinates(int x, int y) {
 		playerX = x;

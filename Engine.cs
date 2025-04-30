@@ -22,8 +22,6 @@ public class Engine : Game {
     private readonly Player player;
     private readonly List<Monster> monsters;
     private readonly Pienus pienus;
-    private double actionTimer;
-    private readonly double actionInterval = 0.1;
     private GameLoop gameLoop;
     private KeyboardState _prevKeyboardState;
 
@@ -46,6 +44,7 @@ public class Engine : Game {
     protected override void Initialize() {
         map = new Map();
         gameLoop = new GameLoop();
+        GameLoop.instance = gameLoop;
         gameLoop.AddActor(player);
         gameLoop.AddActor(pienus);
         foreach (Actor monster in monsters) {
@@ -62,15 +61,11 @@ public class Engine : Game {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        actionTimer += gameTime.ElapsedGameTime.TotalSeconds;
-        if (actionTimer < actionInterval) return;
-
         var keyboardState = Keyboard.GetState();
         player.SetInput(keyboardState, _prevKeyboardState);
         pienus.SetPlayerCoordinates(player.x, player.y);
         _prevKeyboardState = keyboardState;
 
-        actionTimer = 0;
         gameLoop.Process();
 
         base.Update(gameTime);
