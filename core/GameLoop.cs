@@ -12,14 +12,24 @@ public class GameLoop {
 	public void AddActor(Actor actor) => _actors.Add(actor);
 
 	public void Process() {
-		while (true) {
-			if (_actors.Count == 0) break;
-			GameAction action = _actors[_currentActor].GetGameAction();
-			if (action == null) break;
-			action.Execute();
-			_currentActor = (_currentActor + 1) % _actors.Count;
+		if (_actors.Count == 0) return;
+		Actor actor = _actors[_currentActor];
+		GameAction action = actor.GetGameAction();
+
+		int maxAttempts = 10;
+		int attempts = 0;
+
+		while (action != null && attempts++ < maxAttempts) {
+			GameActionResult result = action.Execute();
+			if (result.alternative != null) {
+				action = result.alternative;
+				continue;
+			}
+			if (result.succeeded) {
+				_currentActor = (_currentActor + 1) % _actors.Count;
+			}
+			break;
 		}
-		return;
 	}
 
 	public IEnumerable<Actor> GetActors() => _actors;
