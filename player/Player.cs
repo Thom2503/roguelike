@@ -36,16 +36,16 @@ public class Player : Actor {
 	private bool IsKeyPressed(Keys key) => current.IsKeyDown(key) && !previous.IsKeyDown(key);
 
 	public override GameAction GetGameAction() {
-        if (IsKeyPressed(Keys.Up)) {
+        if (IsKeyPressed(Keys.Up) || IsKeyPressed(Keys.K)) {
             return new MoveAction(0, -1, this);
         }
-        else if (IsKeyPressed(Keys.Down)) {
+        else if (IsKeyPressed(Keys.Down) || IsKeyPressed(Keys.J)) {
             return new MoveAction(0, 1, this);
         }
-        else if (IsKeyPressed(Keys.Left)) {
+        else if (IsKeyPressed(Keys.Left) || IsKeyPressed(Keys.H)) {
             return new MoveAction(-1, 0, this);
         }
-        else if (IsKeyPressed(Keys.Right)) {
+        else if (IsKeyPressed(Keys.Right) || IsKeyPressed(Keys.L)) {
             return new MoveAction(1, 0, this);
         }
 		return null;

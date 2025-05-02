@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using roguelike.action;
 using System;
 
+#nullable enable
+
 namespace roguelike.ai;
 
 public class Pienus : Actor {
