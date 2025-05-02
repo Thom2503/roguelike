@@ -15,22 +15,7 @@ public class MoveAction(int dx, int dy, Actor actor) : GameAction {
 		foreach (Actor other in GameLoop.instance.GetActors()) {
 			if (other != actor && other.x == targetX && other.y == targetY) {
 				if (actor is Player) {
-					int skippedX = actor.x + dx * 3;
-					int skippedY = actor.y + dy * 3;
-
-					bool blocked = false;
-					foreach (Actor a in GameLoop.instance.GetActors()) {
-						if (a != actor && a.x == skippedX && a.y == skippedY) {
-							blocked = true;
-							break;
-						}
-					}
-
-					if (!blocked && actor.CanMove(skippedX, skippedY)) {
-						actor.x = skippedX;
-						actor.y = skippedY;
-						return GameActionResult.success;
-					}
+					return SkipTiles();
 				}
 				return GameActionResult.failure;
 			}
@@ -42,5 +27,25 @@ public class MoveAction(int dx, int dy, Actor actor) : GameAction {
 		actor.x = targetX;
 		actor.y = targetY;
 		return GameActionResult.success;
+	}
+
+	private GameActionResult SkipTiles() {
+		int skippedX = actor.x + dx * 3;
+		int skippedY = actor.y + dy * 3;
+
+		bool blocked = false;
+		foreach (Actor a in GameLoop.instance.GetActors()) {
+			if (a != actor && a.x == skippedX && a.y == skippedY) {
+				blocked = true;
+				break;
+			}
+		}
+
+		if (!blocked && actor.CanMove(skippedX, skippedY)) {
+			actor.x = skippedX;
+			actor.y = skippedY;
+			return GameActionResult.success;
+		}
+		return GameActionResult.failure;
 	}
 }
