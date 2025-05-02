@@ -39,16 +39,21 @@ public class Pienus : Actor {
 
 		int stepX = Math.Sign(dx);
 		int stepY = Math.Sign(dy);
-		if (dx != 0 && CanMove(this.x + stepX, this.y)) {
+
+		if (dx != 0 && dy != 0 && CanMove(x + stepX, y + stepY)) {
+			return new MoveAction(stepX, stepY, this);
+		}
+
+		if (dx != 0 && CanMove(x + stepX, y)) {
 			return new MoveAction(stepX, 0, this);
 		}
 
-		if (dy != 0 && CanMove(this.x, this.y + stepY)) {
+		if (dy != 0 && CanMove(x, y + stepY)) {
 			return new MoveAction(0, stepY, this);
 		}
+
 		return null;
 	}
-
 
 	public void SetPlayerCoordinates(int x, int y) {
 		playerX = x;
