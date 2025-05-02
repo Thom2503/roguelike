@@ -63,7 +63,6 @@ public class Engine : Game {
 
         var keyboardState = Keyboard.GetState();
         player.SetInput(keyboardState, _prevKeyboardState);
-        pienus.SetPlayerCoordinates(player.x, player.y);
         _prevKeyboardState = keyboardState;
 
         gameLoop.Process();

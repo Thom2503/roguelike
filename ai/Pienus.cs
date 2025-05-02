@@ -8,7 +8,6 @@ using System;
 namespace roguelike.ai;
 
 public class Pienus : Actor {
-	int playerX, playerY;
 	public Pienus(string name, int maxHealth, int x, int y) : base(name, maxHealth, x, y) {
 		inventory = new Inventory();
 		tile = new AsciiTile {
@@ -18,10 +17,16 @@ public class Pienus : Actor {
 		};
 	}
 
+	private Actor? GetPlayer() {
+		foreach (var actor in GameLoop.instance.GetActors()) {
+			if (actor is roguelike.player.Player) {
+				return actor;
+			}
+		}
+		return null;
+	}
+
 	public override bool CanMove(int x, int y) {
-		if (x == playerX && y == playerY)
-			return false;
-	
 		foreach (var actor in GameLoop.instance.GetActors()) {
 			if (actor != this && actor.x == x && actor.y == y)
 				return false;
@@ -29,34 +34,34 @@ public class Pienus : Actor {
 		return true;
 	}
 
-	public override bool CanMove(Actor actor) {
-		return base.CanMove(actor);
-	}
-
 	public override GameAction GetGameAction() {
-		int dx = playerX - this.x;
-		int dy = playerY - this.y;
+	    Actor? player = GetPlayer();
+	    if (player == null) return new WaitAction(this);
 
-		int stepX = Math.Sign(dx);
-		int stepY = Math.Sign(dy);
+	    int dx = player.x - this.x;
+	    int dy = player.y - this.y;
 
-		if (dx != 0 && dy != 0 && CanMove(x + stepX, y + stepY)) {
-			return new MoveAction(stepX, stepY, this);
-		}
+	    int stepX = Math.Sign(dx);
+	    int stepY = Math.Sign(dy);
 
-		if (dx != 0 && CanMove(x + stepX, y)) {
-			return new MoveAction(stepX, 0, this);
-		}
+	    if (dx != 0 && dy != 0) {
+	        if (CanMove(x + stepX, y + stepY)) {
+	            return new MoveAction(stepX, stepY, this);
+	        }
+	    }
 
-		if (dy != 0 && CanMove(x, y + stepY)) {
-			return new MoveAction(0, stepY, this);
-		}
+	    if (Math.Abs(dx) > Math.Abs(dy)) {
+	        if (dx != 0 && CanMove(x + stepX, y)) {
+	            return new MoveAction(stepX, 0, this);
+	        }
+	    }
 
-		return null;
-	}
+	    if (Math.Abs(dy) > Math.Abs(dx)) {
+	        if (dy != 0 && CanMove(x, y + stepY)) {
+	            return new MoveAction(0, stepY, this);
+	        }
+	    }
 
-	public void SetPlayerCoordinates(int x, int y) {
-		playerX = x;
-		playerY = y;
+	    return new WaitAction(this);
 	}
 }

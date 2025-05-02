@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using roguelike.action;
 using roguelike.player;
+using roguelike.ai;
+using System;
 
 namespace roguelike.core;
 
