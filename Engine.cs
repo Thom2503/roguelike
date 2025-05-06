@@ -8,6 +8,7 @@ using roguelike.action;
 using roguelike.ai;
 using System;
 using roguelike.core;
+using roguelike.level;
 
 namespace roguelike;
 
@@ -19,6 +20,7 @@ public class Engine : Game {
     public AsciiTile[,] tiles = new AsciiTile[75, 30];
 
     private Map map;
+    private MapGenerator generator;
     private readonly Player player;
     private readonly List<Monster> monsters;
     private readonly Pienus pienus;
@@ -43,6 +45,8 @@ public class Engine : Game {
 
     protected override void Initialize() {
         map = new Map();
+        generator = new MapGenerator();
+        tiles = generator.GenerateMap();
         gameLoop = new GameLoop();
         GameLoop.instance = gameLoop;
         gameLoop.AddActor(player);
@@ -73,17 +77,17 @@ public class Engine : Game {
     protected override void Draw(GameTime gameTime) {
         base.Draw(gameTime);
 
-        for (int y = 0; y < 30; y++) {
-            for (int x = 0; x < 75; x++) {
-                bool isBorder = x == 0 || y == 0 || x == 75 || y == 30;
+        //for (int y = 0; y < 30; y++) {
+        //    for (int x = 0; x < 75; x++) {
+        //        bool isBorder = x == 0 || y == 0 || x == 75 || y == 30;
 
-                tiles[x, y] = new AsciiTile {
-                    Character = isBorder ? '#' : '.',
-                    Foreground = isBorder ? Color.White : Color.LightGray,
-                    Background = isBorder ? Color.DarkSlateGray : Color.Black
-                };
-            }
-        }
+        //        tiles[x, y] = new AsciiTile {
+        //            Character = isBorder ? '#' : '.',
+        //            Foreground = isBorder ? Color.White : Color.LightGray,
+        //            Background = isBorder ? Color.DarkSlateGray : Color.Black
+        //        };
+        //    }
+        //}
 
         DrawActors();
 
