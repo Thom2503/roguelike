@@ -37,33 +37,33 @@ public class Pienus : Actor {
 	}
 
 	public override GameAction GetGameAction() {
-	    Actor? player = GetPlayer();
-	    if (player == null) return new WaitAction(this);
+		Actor? player = GetPlayer();
+		if (player == null) return new WaitAction(this);
 
-	    int dx = player.x - this.x;
-	    int dy = player.y - this.y;
+		int dx = player.x - this.x;
+		int dy = player.y - this.y;
 
-	    int stepX = Math.Sign(dx);
-	    int stepY = Math.Sign(dy);
+		int stepX = Math.Sign(dx);
+		int stepY = Math.Sign(dy);
 
-	    if (dx != 0 && dy != 0) {
-	        if (CanMove(x + stepX, y + stepY)) {
-	            return new MoveAction(stepX, stepY, this);
-	        }
-	    }
+		if (dx != 0 && dy != 0) {
+			if (CanMove(x + stepX, y + stepY)) {
+				return new MoveAction(stepX, stepY, this);
+			}
+		}
 
-	    if (Math.Abs(dx) > Math.Abs(dy)) {
-	        if (dx != 0 && CanMove(x + stepX, y)) {
-	            return new MoveAction(stepX, 0, this);
-	        }
-	    }
+		if (Math.Abs(dx) > Math.Abs(dy)) {
+			if (dx != 0 && CanMove(x + stepX, y)) {
+				return new MoveAction(stepX, 0, this);
+			}
+		}
 
-	    if (Math.Abs(dy) > Math.Abs(dx)) {
-	        if (dy != 0 && CanMove(x, y + stepY)) {
-	            return new MoveAction(0, stepY, this);
-	        }
-	    }
+		if (Math.Abs(dy) > Math.Abs(dx)) {
+			if (dy != 0 && CanMove(x, y + stepY)) {
+				return new MoveAction(0, stepY, this);
+			}
+		}
 
-	    return new WaitAction(this);
+		return new WaitAction(this);
 	}
 }
