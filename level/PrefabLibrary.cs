@@ -14,7 +14,54 @@ public static class PrefabLibrary {
 	}
 
 	private static void LoadPrefabs() {
-
+		tilePrefabs.Add(new TilePrefab(
+			"Circled Bathhouse",
+            [
+				"###########",
+				"#.........#",
+				"#.#.....#.#",
+				"#...~~~...#",
+				"#..~~~~~..#",
+				"#...~~~...#",
+				"#.#.....#.#",
+				"#.........#",
+				"#####.#####",
+			],
+            [(5, 8)],
+            ["bath", "water", "ruins"]
+		));
+		tilePrefabs.Add(new TilePrefab(
+			"Big Bathhouse",
+            [
+				"###########",
+				"#~~~~~~~~~#",
+				"#~~~~~~~~~#",
+				"#~~~~~~~~~#",
+				"#~~~~~~~~~#",
+				"#...~~~...#",
+				"#.#.....#.#",
+				"#.........#",
+				"#####.#####",
+			],
+            [(5, 8)],
+            ["bath", "water", "ruins"]
+		));
+		tilePrefabs.Add(new TilePrefab(
+			"Centered Bathhouse",
+            [
+				"#####.#####",
+				"#.........#",
+				"#.#.....#.#",
+				"#...~~~...#",
+				"....~~~....",
+				"#...~~~...#",
+				"#.#.....#.#",
+				"#.........#",
+				"#####.#####",
+			],
+            [(5, 8), (5, 0), (0, 4), (10, 4)],
+            ["bath", "water", "ruins"]
+		));
 	}
 
 	public static TilePrefab? GetRandomByTag(string tag) {
