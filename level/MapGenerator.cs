@@ -37,8 +37,8 @@ public class MapGenerator {
 		Plan levelPlan = new Plan();
 		levelPlan.CreateRegions(_mapWidth, _mapHeight);
 
-		foreach (var region in levelPlan.GetRegions()) {
-			var prefab = GetRandomPrefabForRegion(region);
+		foreach (Region region in levelPlan.GetRegions()) {
+			TilePrefab prefab = GetRandomPrefabForRegion(region);
 
 			if (prefab == null || prefab.Width > region.width || prefab.Height > region.height)
 				continue;
@@ -69,6 +69,8 @@ public class MapGenerator {
 		'.' => Color.LightGray,
 		'~' => Color.LightBlue,
 		'è' => new Color(85, 107, 47),
+		',' => Color.Green,
+		(char)24 => Color.DeepPink,
 		_ => Color.LightGray
 	};
 
@@ -77,6 +79,8 @@ public class MapGenerator {
 		'.' => Color.Black,
 		'~' => Color.DarkBlue,
 		'è' => Color.AntiqueWhite,
+		',' => Color.Black,
+		((char)24) => Color.Black,
 		_ => Color.Black
 	};
 
@@ -85,6 +89,8 @@ public class MapGenerator {
 		'.' => TileType.TILE_FLOOR,
 		'~' => TileType.TILE_WATER,
 		'è' => TileType.TILE_STATUE,
+		',' => TileType.TILE_GRASS,
+		((char)24) => TileType.TILE_FLOWER,
 		_ => TileType.TILE_FLOOR
 	};
 
@@ -93,6 +99,8 @@ public class MapGenerator {
 		TileType.TILE_FLOOR => '.',
 		TileType.TILE_WATER => '~',
 		TileType.TILE_STATUE => 'è',
+		TileType.TILE_GRASS => ',',
+		TileType.TILE_FLOWER => ((char)24),
 		_ => ' '
 	};
 
