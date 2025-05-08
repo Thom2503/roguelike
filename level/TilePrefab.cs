@@ -30,6 +30,7 @@ public class TilePrefab(string name, string[] asciiLayout, (int x, int y)[] door
 			'÷' => TileType.TILE_WATER,
 			'è' => TileType.TILE_STATUE,
 			',' => TileType.TILE_GRASS,
+			'0' => TileType.TILE_TOMB,
 			((char)24) => TileType.TILE_FLOWER,
 			_ => TileType.EMPTY,
 		};

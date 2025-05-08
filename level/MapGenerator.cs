@@ -70,6 +70,7 @@ public class MapGenerator {
 		'~' => Color.LightBlue,
 		'è' => new Color(85, 107, 47),
 		',' => Color.Green,
+		'0' => Color.RosyBrown,
 		(char)24 => Color.DeepPink,
 		_ => Color.LightGray
 	};
@@ -80,6 +81,7 @@ public class MapGenerator {
 		'~' => Color.DarkBlue,
 		'è' => Color.AntiqueWhite,
 		',' => Color.Black,
+		'0' => Color.Black,
 		((char)24) => Color.Black,
 		_ => Color.Black
 	};
@@ -90,6 +92,7 @@ public class MapGenerator {
 		'~' => TileType.TILE_WATER,
 		'è' => TileType.TILE_STATUE,
 		',' => TileType.TILE_GRASS,
+		'0' => TileType.TILE_TOMB,
 		((char)24) => TileType.TILE_FLOWER,
 		_ => TileType.TILE_FLOOR
 	};
@@ -100,6 +103,7 @@ public class MapGenerator {
 		TileType.TILE_WATER => '~',
 		TileType.TILE_STATUE => 'è',
 		TileType.TILE_GRASS => ',',
+		TileType.TILE_TOMB => '0',
 		TileType.TILE_FLOWER => ((char)24),
 		_ => ' '
 	};

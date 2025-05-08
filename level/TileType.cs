@@ -14,5 +14,6 @@ public enum TileType {
 	TILE_CHASM,
 	TILE_GRASS,
 	TILE_FLOWER,
+	TILE_TOMB,
 	EMPTY,
 }
