@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace roguelike.level;
 
 public class MapGenerator {
-	private AsciiTile[,] _tiles = new AsciiTile[_mapWidth, _mapHeight]; 
+	private readonly AsciiTile[,] _tiles = new AsciiTile[_mapWidth, _mapHeight]; 
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
 
