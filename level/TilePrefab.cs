@@ -10,7 +10,7 @@ public class TilePrefab(string name, string[] asciiLayout, (int x, int y)[] door
 	public int Width => layout.GetLength(0);
 	public int Height => layout.GetLength(1);
 
-    private static TileType[,] ParseASCIILayout(string[] lines) {
+	private static TileType[,] ParseASCIILayout(string[] lines) {
 		int height = lines.Length;
 		int width = lines[0].Length;
 		TileType[,] layout = new TileType[width, height];
@@ -21,17 +21,17 @@ public class TilePrefab(string name, string[] asciiLayout, (int x, int y)[] door
 		return layout;
 	}
 
-    private static TileType CharToTile(char c)
-    {
-        return c switch
-        {
-            '#' => TileType.TILE_WALL,
-            '.' => TileType.TILE_FLOOR,
-            '÷' => TileType.TILE_WATER,
-            'è' => TileType.TILE_STATUE,
-            ',' => TileType.TILE_GRASS,
+	private static TileType CharToTile(char c)
+	{
+		return c switch
+		{
+			'#' => TileType.TILE_WALL,
+			'.' => TileType.TILE_FLOOR,
+			'÷' => TileType.TILE_WATER,
+			'è' => TileType.TILE_STATUE,
+			',' => TileType.TILE_GRASS,
 			((char)24) => TileType.TILE_FLOWER,
-            _ => TileType.EMPTY,
-        };
-    }
+			_ => TileType.EMPTY,
+		};
+	}
 }
