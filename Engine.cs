@@ -17,7 +17,7 @@ public class Engine : Game {
 	public SpriteBatch SpriteBatch { get; private set; }
 	public Queue<GameAction> aiActions;
 	public Queue<GameAction> playerActions;
-	public AsciiTile[,] tiles = new AsciiTile[75, 30];
+	public AsciiTile[,] tiles = new AsciiTile[150, 60];
 
 	private Map map;
 	private MapGenerator generator;
@@ -44,7 +44,6 @@ public class Engine : Game {
 	}
 
 	protected override void Initialize() {
-		map = new Map();
 		generator = new MapGenerator();
 		tiles = generator.GenerateMap();
 		gameLoop = new GameLoop();
@@ -77,18 +76,6 @@ public class Engine : Game {
 	protected override void Draw(GameTime gameTime) {
 		base.Draw(gameTime);
 
-		//for (int y = 0; y < 30; y++) {
-		//    for (int x = 0; x < 75; x++) {
-		//        bool isBorder = x == 0 || y == 0 || x == 75 || y == 30;
-
-		//        tiles[x, y] = new AsciiTile {
-		//            Character = isBorder ? '#' : '.',
-		//            Foreground = isBorder ? Color.White : Color.LightGray,
-		//            Background = isBorder ? Color.DarkSlateGray : Color.Black
-		//        };
-		//    }
-		//}
-
 		DrawActors();
 
 		map = new Map(tiles);
@@ -101,6 +88,18 @@ public class Engine : Game {
 			 if (actor.x >= 0 && actor.x < 75 && actor.y >= 0 && actor.y < 30) {
 				tiles[actor.x, actor.y] = actor.tile;
 			 }
+		}
+	}
+
+	private void ClearTiles() {
+		for (int y = 0; y < 60; y++) {
+			for (int x = 0; x < 150; x++) {
+				tiles[x, y] = new AsciiTile {
+					Character = '.',
+					Foreground = Color.LightGray,
+					Background = Color.Black
+				};
+			}
 		}
 	}
 

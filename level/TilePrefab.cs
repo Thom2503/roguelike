@@ -7,6 +7,9 @@ public class TilePrefab(string name, string[] asciiLayout, (int x, int y)[] door
 	public (int x, int y)[] doorPositions = doors;
 	public string[] tags = tags;
 
+	public int Width => layout.GetLength(0);
+	public int Height => layout.GetLength(1);
+
     private static TileType[,] ParseASCIILayout(string[] lines) {
 		int height = lines.Length;
 		int width = lines[0].Length;

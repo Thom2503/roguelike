@@ -13,7 +13,6 @@ public class Map {
 
 	private bool _texturesLoaded = false;
 
-	public Map() {}
 	public Map(AsciiTile[,] tiles) {
 		_tiles = tiles;
 	}

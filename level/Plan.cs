@@ -20,10 +20,6 @@ public class Plan {
 
 		for (int row = 0; row < _gridHeight; row++) {
 			for (int col = 0; col < _gridWidth; col++) {
-				RegionType type = GetRandomRegionType();
-				if (type == RegionType.EMPTY)
-					continue;
-
 				int maxWidth = cellWidth - 2;
 				int maxHeight = cellHeight - 2;
 
@@ -39,16 +35,9 @@ public class Plan {
 				int x = cellX + offsetX;
 				int y = cellY + offsetY;
 
-				_regions.Add(new Region(type, x, y, width, height));
+				_regions.Add(new Region(RegionType.ROOM, x, y, width, height));
 			}
 		}
-	}
-
-	private RegionType GetRandomRegionType() {
-		int roll = _rand.Next(0, 100);
-		if (roll < 60) return RegionType.ROOM;
-		if (roll < 90) return RegionType.CAVE;
-		return RegionType.EMPTY;
 	}
 
 	public IEnumerable<Region> GetRegions() => _regions;
