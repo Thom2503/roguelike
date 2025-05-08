@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using roguelike.level;
 
 namespace roguelike.render;
 
@@ -51,5 +52,23 @@ public class Map {
 		int x = index % cols * _tileWidth;
 		int y = index / cols * _tileHeight;
 		return new Rectangle(x, y, _tileWidth, _tileHeight);
+	}
+
+	public static AsciiTile[,] CloneTiles(AsciiTile[,] source) {
+		int w = source.GetLength(0);
+		int h = source.GetLength(1);
+		AsciiTile[,] clone = new AsciiTile[w, h];
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
+				AsciiTile t = source[x, y];
+				clone[x, y] = new AsciiTile {
+					Character = t.Character,
+					Foreground = t.Foreground,
+					Background = t.Background,
+					Type = t.Type
+				};
+			}
+		}
+		return clone;
 	}
 }

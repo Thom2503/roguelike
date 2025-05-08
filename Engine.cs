@@ -18,6 +18,7 @@ public class Engine : Game {
 	public Queue<GameAction> aiActions;
 	public Queue<GameAction> playerActions;
 	public AsciiTile[,] tiles = new AsciiTile[150, 60];
+	private AsciiTile[,] baseMapTiles;
 
 	private Map map;
 	private MapGenerator generator;
@@ -46,6 +47,7 @@ public class Engine : Game {
 	protected override void Initialize() {
 		generator = new MapGenerator();
 		tiles = generator.GenerateMap();
+		baseMapTiles = Map.CloneTiles(tiles);
 		gameLoop = new GameLoop();
 		GameLoop.instance = gameLoop;
 		gameLoop.AddActor(player);
@@ -76,6 +78,8 @@ public class Engine : Game {
 	protected override void Draw(GameTime gameTime) {
 		base.Draw(gameTime);
 
+		tiles = Map.CloneTiles(baseMapTiles);
+
 		DrawActors();
 
 		map = new Map(tiles);
@@ -91,17 +95,7 @@ public class Engine : Game {
 		}
 	}
 
-	private void ClearTiles() {
-		for (int y = 0; y < 60; y++) {
-			for (int x = 0; x < 150; x++) {
-				tiles[x, y] = new AsciiTile {
-					Character = '.',
-					Foreground = Color.LightGray,
-					Background = Color.Black
-				};
-			}
-		}
-	}
 
-	void WindowClientSizeChanged(object sender, EventArgs e) {}
+
+	private void WindowClientSizeChanged(object sender, EventArgs e) {}
 }

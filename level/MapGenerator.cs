@@ -15,10 +15,10 @@ public class MapGenerator {
 		for (int i = 0; i < _tiles.GetLength(0); i++)
 			for (int j = 0; j < _tiles.GetLength(1); j++)
 				_tiles[i, j] = new AsciiTile {
-					Character = 'è',
-					Foreground = Color.White,
-					Background = Color.DarkSlateGray,
-					Type = TileType.TILE_WALL
+					Character = ' ',
+					Foreground = Color.Black,
+					Background = Color.Black,
+					Type = TileType.EMPTY
 				};
 	}
 
@@ -28,10 +28,10 @@ public class MapGenerator {
 		for (int i = 0; i < tiles.GetLength(0); i++)
 			for (int j = 0; j < tiles.GetLength(1); j++)
 				tiles[i, j] = new AsciiTile {
-					Character = 'è',
-					Foreground = Color.White,
-					Background = Color.DarkSlateGray,
-					Type = TileType.TILE_WALL
+					Character = ' ',
+					Foreground = Color.Black,
+					Background = Color.Black,
+					Type = TileType.EMPTY
 				};
 
 		Plan levelPlan = new Plan();
