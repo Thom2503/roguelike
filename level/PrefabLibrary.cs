@@ -16,7 +16,7 @@ public static class PrefabLibrary {
 	private static void LoadPrefabs() {
 		tilePrefabs.Add(new TilePrefab(
 			"Circled Bathhouse",
-            [
+			[
 				"###########",
 				"#.........#",
 				"#.#.....#.#",
@@ -27,12 +27,12 @@ public static class PrefabLibrary {
 				"#.........#",
 				"#####.#####",
 			],
-            [(5, 8)],
-            ["bath", "water", "ruins"]
+			[(5, 8)],
+			["bath", "water", "ruins"]
 		));
 		tilePrefabs.Add(new TilePrefab(
 			"Big Bathhouse",
-            [
+			[
 				"###########",
 				"#~~~~~~~~~#",
 				"#~~~~~~~~~#",
@@ -43,12 +43,12 @@ public static class PrefabLibrary {
 				"#.........#",
 				"#####.#####",
 			],
-            [(5, 8)],
-            ["bath", "water", "ruins"]
+			[(5, 8)],
+			["bath", "water", "ruins"]
 		));
 		tilePrefabs.Add(new TilePrefab(
 			"Centered Bathhouse",
-            [
+			[
 				"#####.#####",
 				"#.........#",
 				"#.#.....#.#",
@@ -59,8 +59,56 @@ public static class PrefabLibrary {
 				"#.........#",
 				"#####.#####",
 			],
-            [(5, 8), (5, 0), (0, 4), (10, 4)],
-            ["bath", "water", "ruins"]
+			[(5, 8), (5, 0), (0, 4), (10, 4)],
+			["bath", "water"]
+		));
+		tilePrefabs.Add(new TilePrefab(
+			"Lawfully Wild Temple",
+			[
+				"###########",
+				"#.........#",
+				"#.#..è..#.#",
+				"#.........#",
+				"#.#.....#.#",
+				"#.........#",
+				"#.#.....#.#",
+				"#.........#",
+				"#####.#####",
+			],
+			[(5, 8)],
+			["temple", "olympians", "wild"]
+		));
+		tilePrefabs.Add(new TilePrefab(
+			"Hidden Warriors Temple",
+			[
+				"###########",
+				"#.........#",
+				"#....è....#",
+				"#.........#",
+				"#.#..#..#.#",
+				"#.........#",
+				"#.#..#..#.#",
+				"#.........#",
+				"#####.#####",
+			],
+			[(5, 8), (5, 0), (0, 4), (10, 4)],
+			["temple", "warriors", "olympians"]
+		));
+		tilePrefabs.Add(new TilePrefab(
+			"Big Temple",
+			[
+				"#####.#####",
+				"#.........#",
+				"#.#..#..#.#",
+				"#.........#",
+				".....è.....",
+				"#.........#",
+				"#.#..#..#.#",
+				"#.........#",
+				"#####.#####",
+			],
+			[(5, 8)],
+			["temple", "olympians", "wild", "warriors", "underworld"]
 		));
 	}
 
