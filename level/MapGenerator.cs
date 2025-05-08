@@ -68,7 +68,7 @@ public class MapGenerator {
 		'#' => Color.White,
 		'.' => Color.LightGray,
 		'~' => Color.LightBlue,
-		'è' => Color.LightGray,
+		'è' => new Color(85, 107, 47),
 		_ => Color.LightGray
 	};
 
