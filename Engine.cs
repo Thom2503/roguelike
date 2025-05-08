@@ -89,7 +89,7 @@ public class Engine : Game {
 
 	private void DrawActors() {
 		foreach (Actor actor in gameLoop.GetActors()) {
-			 if (actor.x >= 0 && actor.x < 75 && actor.y >= 0 && actor.y < 30) {
+			 if (actor.x >= 0 && actor.x < 150 && actor.y >= 0 && actor.y < 60) {
 				tiles[actor.x, actor.y] = actor.tile;
 			 }
 		}
