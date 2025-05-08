@@ -7,5 +7,5 @@ public class AsciiTile {
 	public char Character;
 	public Color Foreground;
 	public Color Background;
-	public TileType Type = TileType.None;
+	public TileType Type = TileType.EMPTY;
 };

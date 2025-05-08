@@ -3,7 +3,7 @@ namespace roguelike.level;
 public enum TileType {
 	TILE_WALL,
 	TILE_PLAYER,
-	TILE_GROUND,
+	TILE_FLOOR,
 	TILE_TREASURE,
 	TILE_ITEM,
 	TILE_MONSTER,
@@ -11,7 +11,6 @@ public enum TileType {
 	TILE_DOOR,
 	TILE_BRIDGE,
 	TILE_WATER,
-	TILE_LAVA,
 	TILE_CHASM,
-	None,
+	EMPTY,
 }
