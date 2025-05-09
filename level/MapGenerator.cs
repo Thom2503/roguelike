@@ -65,25 +65,25 @@ public class MapGenerator {
 	}
 
 	private Color GetForeground(char c) => c switch {
-		'#' => Color.White,
-		'.' => Color.LightGray,
-		'~' => Color.LightBlue,
-		'è' => new Color(85, 107, 47),
-		',' => Color.Green,
-		'0' => Color.RosyBrown,
-		(char)24 => Color.DeepPink,
-		_ => Color.LightGray
+		'#' => new Color(170, 170, 170),
+		'.' => new Color(130, 110, 100),
+		'~' => new Color(80, 120, 170),
+		'è' => new Color(120, 130, 100),
+		',' => new Color(80, 150, 90),
+		'0' => new Color(160, 120, 100),
+		(char)24 => new Color(220, 100, 160),
+		_ => new Color(130, 110, 100)
 	};
 
 	private Color GetBackground(char c) => c switch {
-		'#' => Color.DarkSlateGray,
-		'.' => Color.Black,
-		'~' => Color.DarkBlue,
-		'è' => Color.AntiqueWhite,
-		',' => Color.Black,
-		'0' => Color.Black,
-		((char)24) => Color.Black,
-		_ => Color.Black
+		'#' => new Color(40, 40, 40),
+		'.' => new Color(25, 20, 20),
+		'~' => new Color(20, 30, 60),
+		'è' => new Color(40, 45, 30),
+		',' => new Color(30, 50, 30),
+		'0' => new Color(50, 35, 30),
+		((char)24) => new Color(45, 30, 40),
+		_ => new Color(20, 20, 20)
 	};
 
 	private TileType GetTileType(char c) => c switch {
