@@ -5,8 +5,8 @@ using roguelike.level;
 namespace roguelike.render;
 
 public class Map {
-	private const int _tileWidth = 16;
-	private const int _tileHeight = 16;
+	private const int _tileWidth = 24;
+	private const int _tileHeight = 24;
 	private readonly AsciiTile[,] _tiles;
 
 	private Texture2D _blankTexture;

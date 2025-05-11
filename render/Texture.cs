@@ -14,7 +14,7 @@ public static class Texture {
 
 	public static Texture2D CreateFontTexture(Engine engine) {
 		Texture2D fontTexture;
-		using (var stream = File.OpenRead("Content/sprites/ascii_tiles.png")) {
+		using (var stream = File.OpenRead("Content/sprites/ascii_tiles_bigger.png")) {
 			fontTexture = Texture2D.FromStream(engine.Graphics.GraphicsDevice, stream);
 		}
 		return fontTexture;
