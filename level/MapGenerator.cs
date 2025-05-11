@@ -7,9 +7,18 @@ using System.Linq;
 namespace roguelike.level;
 
 public class MapGenerator {
+
+	public struct PrefabRoom {
+		public int x;
+		public int y;
+		public TilePrefab prefab;
+	};
+
 	private readonly AsciiTile[,] _tiles = new AsciiTile[_mapWidth, _mapHeight]; 
+	private List<PrefabRoom> prefabRooms = new List<PrefabRoom>();
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
+	private const int _maxAttempts = 100;
 
 	public MapGenerator() {
 		for (int i = 0; i < _tiles.GetLength(0); i++)
@@ -34,34 +43,41 @@ public class MapGenerator {
 					Type = TileType.EMPTY
 				};
 
-		Plan levelPlan = new Plan();
-		levelPlan.CreateRegions(_mapWidth, _mapHeight);
+		for (int attempt = 0; attempt < _maxAttempts; attempt++) {
+			TilePrefab prefab = GetRandomPrefab();
+			Random rand = new Random();
+			int x = rand.Next(0, _mapWidth - prefab.Width);
+			int y = rand.Next(0, _mapHeight - prefab.Height);
 
-		foreach (Region region in levelPlan.GetRegions()) {
-			TilePrefab prefab = GetRandomPrefabForRegion(region);
-
-			if (prefab == null || prefab.Width > region.width || prefab.Height > region.height)
-				continue;
-
-			int offsetX = region.x + (region.width - prefab.Width) / 2;
-			int offsetY = region.y + (region.height - prefab.Height) / 2;
-
-			for (int y = 0; y < prefab.Height; y++) {
-				for (int x = 0; x < prefab.Width; x++) {
-					TileType tile = prefab.layout[x, y];
-					char c = TileTypeToChar(tile);
-
-					tiles[offsetX + x, offsetY + y] = new AsciiTile {
-						Character = c,
-						Foreground = GetForeground(c),
-						Background = GetBackground(c),
-						Type = GetTileType(c)
-					};
+			if (!DoesRoomOverlap(x, y, prefab)) {
+				for (int i = 0; i < prefab.Height; i++) {
+					for (int j = 0; j < prefab.Width; j++) {
+						TileType tile = prefab.layout[j, i];
+						char c = TileTypeToChar(tile);
+	
+						tiles[x + j, y + i] = new AsciiTile {
+							Character = c,
+							Foreground = GetForeground(c),
+							Background = GetBackground(c),
+							Type = GetTileType(c)
+						};
+					}
 				}
+				prefabRooms.Add(new PrefabRoom { x = x, y = y, prefab = prefab});
 			}
 		}
 
 		return tiles;
+	}
+
+	private bool DoesRoomOverlap(int x, int y, TilePrefab prefab) {
+		foreach (PrefabRoom room in prefabRooms) {
+			if (x + prefab.Width > room.x && x < room.x + room.prefab.Width &&
+			    y + prefab.Height > room.y && y < room.y + room.prefab.Height) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private Color GetForeground(char c) => c switch {
@@ -109,15 +125,6 @@ public class MapGenerator {
 	};
 
 
-	private TilePrefab GetRandomPrefabForRegion(Region region) {
-		List<TilePrefab> validPrefabs = PrefabLibrary.tilePrefabs
-			.Where(p => p.Width <= region.width && p.Height <= region.height)
-			.ToList();
-
-		if (validPrefabs.Count == 0)
-			return null;
-
-		return validPrefabs[new Random().Next(validPrefabs.Count)];
-	}
+	private TilePrefab GetRandomPrefab() => PrefabLibrary.tilePrefabs[new Random().Next(PrefabLibrary.tilePrefabs.Count)];
 
 }

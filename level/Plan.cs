@@ -6,8 +6,8 @@ namespace roguelike.level;
 public class Plan {
 	private List<Region> _regions;
 	private Random _rand;
-	private int _gridWidth = 3;
-	private int _gridHeight = 3;
+	private int _gridWidth = 4;
+	private int _gridHeight = 4;
 
 	public Plan() {
 		_regions = new List<Region>();
