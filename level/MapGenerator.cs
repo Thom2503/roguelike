@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using roguelike.core;
 
 namespace roguelike.level;
 
@@ -67,6 +68,8 @@ public class MapGenerator {
 			}
 		}
 
+		tiles = ConnectRooms(tiles);
+
 		return tiles;
 	}
 
@@ -78,6 +81,39 @@ public class MapGenerator {
 			}
 		}
 		return false;
+	}
+
+	private AsciiTile[,] ConnectRooms(AsciiTile[,] tiles) {
+		for (int i = 1; i < prefabRooms.Count; i++) {
+			PrefabRoom roomA = prefabRooms[i - 1];
+			PrefabRoom roomB = prefabRooms[i];
+
+			Vector2Int pointA = new Vector2Int(roomA.x + roomA.prefab.Width / 2, roomA.y + roomA.prefab.Height / 2);
+			Vector2Int pointB = new Vector2Int(roomB.x + roomB.prefab.Width / 2, roomB.y + roomB.prefab.Height / 2);
+			tiles = CreateCorridor(pointA, pointB, tiles);
+		}
+		return tiles;
+	}
+
+	private AsciiTile[,] CreateCorridor(Vector2Int to, Vector2Int from, AsciiTile[,] tiles) {
+		char c = '.';
+		for (int x = (int)MathF.Min(from.x, to.x); x <= MathF.Max(from.x, to.x); x++) {
+			tiles[x, from.y] = new AsciiTile {
+				Character = c,
+				Foreground = GetForeground(c),
+				Background = GetBackground(c),
+				Type = GetTileType(c)
+			};
+		}
+		for (int y = (int)MathF.Min(from.y, to.y); y <= MathF.Max(from.y, to.y); y++) {
+			tiles[to.x, y] = new AsciiTile {
+				Character = c,
+				Foreground = GetForeground(c),
+				Background = GetBackground(c),
+				Type = GetTileType(c)
+			};
+		}
+		return tiles;
 	}
 
 	private Color GetForeground(char c) => c switch {
