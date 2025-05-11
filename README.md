@@ -15,7 +15,7 @@ To get started with this project, follow these steps:
 
 ### Prerequisites
 
-- .NET SDK (version 6.0 or later)
+- .NET SDK (version 8.0 or later)
 - MonoGame (version 3.8 or later)
 - Visual Studio or your preferred C# editor
 
@@ -33,3 +33,4 @@ To name some :)
 - [Hauberk Source Code](https://github.com/munificent/hauberk)
 - [RogueBasin articles](https://roguebasin.com/index.php/Articles)
 - [Dwarf Fortress repo (for the tileset)](https://dwarffortresswiki.org/Tileset_repository)
+- [Rooms and Mazes: A Procedural Dungeon Generator](https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/)
