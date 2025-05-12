@@ -2,7 +2,6 @@ using roguelike.render;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using roguelike.core;
 
 namespace roguelike.level;
