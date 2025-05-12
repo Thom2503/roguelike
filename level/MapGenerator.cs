@@ -88,6 +88,7 @@ public class MapGenerator {
 			PrefabRoom roomA = prefabRooms[i - 1];
 			PrefabRoom roomB = prefabRooms[i];
 
+			// TODO: Look at door enterances to get x y coods to draw the path.
 			Vector2Int pointA = new Vector2Int(roomA.x + roomA.prefab.Width / 2, roomA.y + roomA.prefab.Height / 2);
 			Vector2Int pointB = new Vector2Int(roomB.x + roomB.prefab.Width / 2, roomB.y + roomB.prefab.Height / 2);
 			tiles = CreateCorridor(pointA, pointB, tiles);
@@ -124,6 +125,7 @@ public class MapGenerator {
 		',' => new Color(80, 150, 90),
 		'0' => new Color(160, 120, 100),
 		(char)24 => new Color(220, 100, 160),
+		' ' => Color.Black,
 		_ => new Color(130, 110, 100)
 	};
 
@@ -135,6 +137,7 @@ public class MapGenerator {
 		',' => new Color(30, 50, 30),
 		'0' => new Color(50, 35, 30),
 		((char)24) => new Color(45, 30, 40),
+		' ' => Color.Black,
 		_ => new Color(20, 20, 20)
 	};
 
@@ -146,6 +149,7 @@ public class MapGenerator {
 		',' => TileType.TILE_GRASS,
 		'0' => TileType.TILE_TOMB,
 		((char)24) => TileType.TILE_FLOWER,
+		' ' => TileType.EMPTY,
 		_ => TileType.TILE_FLOOR
 	};
 
@@ -157,6 +161,7 @@ public class MapGenerator {
 		TileType.TILE_GRASS => ',',
 		TileType.TILE_TOMB => '0',
 		TileType.TILE_FLOWER => ((char)24),
+		TileType.EMPTY => ' ', 
 		_ => ' '
 	};
 
