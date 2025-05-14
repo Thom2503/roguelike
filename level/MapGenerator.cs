@@ -84,35 +84,74 @@ public class MapGenerator {
 
 	private AsciiTile[,] ConnectRooms(AsciiTile[,] tiles) {
 		for (int i = 1; i < prefabRooms.Count; i++) {
+			Random rand = new Random();
 			PrefabRoom roomA = prefabRooms[i - 1];
 			PrefabRoom roomB = prefabRooms[i];
 
-			// TODO: Look at door enterances to get x y coods to draw the path.
-			Vector2Int pointA = new Vector2Int(roomA.x + roomA.prefab.Width / 2, roomA.y + roomA.prefab.Height / 2);
-			Vector2Int pointB = new Vector2Int(roomB.x + roomB.prefab.Width / 2, roomB.y + roomB.prefab.Height / 2);
+			int roomADoorLength = roomA.prefab.doorPositions.Length;
+			int roomAX = roomA.prefab.doorPositions[rand.Next(roomADoorLength)].x;
+			int roomAY = roomA.prefab.doorPositions[rand.Next(roomADoorLength)].y;
+			Vector2Int pointA = new Vector2Int(roomA.x + roomAX, roomA.y + roomAY);
+
+			int roomBDoorLength = roomB.prefab.doorPositions.Length;
+			int roomBX = roomB.prefab.doorPositions[rand.Next(roomBDoorLength)].x;
+			int roomBY = roomB.prefab.doorPositions[rand.Next(roomBDoorLength)].y;
+			Vector2Int pointB = new Vector2Int(roomB.x + roomBX, roomB.y + roomBY);
 			tiles = CreateCorridor(pointA, pointB, tiles);
 		}
 		return tiles;
 	}
 
 	private AsciiTile[,] CreateCorridor(Vector2Int to, Vector2Int from, AsciiTile[,] tiles) {
-		char c = '.';
-		for (int x = (int)MathF.Min(from.x, to.x); x <= MathF.Max(from.x, to.x); x++) {
-			tiles[x, from.y] = new AsciiTile {
-				Character = c,
-				Foreground = GetForeground(c),
-				Background = GetBackground(c),
-				Type = GetTileType(c)
-			};
+		List<Node> openSet = new List<Node>();
+		HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
+
+		openSet.Add(new Node(from, null, 0, Node.Heuristic(from, to)));
+
+		while (openSet.Count > 0) {
+			openSet.Sort((a, b) => a.F.CompareTo(b.F));
+			Node current = openSet[0];
+
+			if (current.pos == to) {
+				Node pathNode = current;
+				char c = '.';
+				while (pathNode != null) {
+					Vector2Int p = pathNode.pos;
+					if (tiles[p.x, p.y].Type == TileType.EMPTY) {
+						tiles[p.x, p.y] = new AsciiTile {
+							Character = c,
+							Foreground = GetForeground(c),
+							Background = GetBackground(c),
+							Type = TileType.TILE_FLOOR
+						};
+					}
+					pathNode = pathNode.parent;
+				}
+				break;
+			}
+
+			openSet.Remove(current);
+			closedSet.Add(current.pos);
+
+			foreach (Vector2Int neighbor in Node.GetNeighbors(current.pos)) {
+				if (!Node.InBounds(neighbor, _mapWidth, _mapHeight) || closedSet.Contains(neighbor))
+					continue;
+
+				if (tiles[neighbor.x, neighbor.y].Type != TileType.EMPTY &&
+				    tiles[neighbor.x, neighbor.y].Type != TileType.TILE_FLOOR) // Allow going through corridors
+					continue;
+
+				int tentativeG = current.G + 1;
+				Node existing = openSet.Find(n => n.pos == neighbor);
+				if (existing == null) {
+					openSet.Add(new Node(neighbor, current, tentativeG, Node.Heuristic(neighbor, to)));
+				} else if (tentativeG < existing.G) {
+					existing.G = tentativeG;
+					existing.parent = current;
+				}
+			}
 		}
-		for (int y = (int)MathF.Min(from.y, to.y); y <= MathF.Max(from.y, to.y); y++) {
-			tiles[to.x, y] = new AsciiTile {
-				Character = c,
-				Foreground = GetForeground(c),
-				Background = GetBackground(c),
-				Type = GetTileType(c)
-			};
-		}
+
 		return tiles;
 	}
 
