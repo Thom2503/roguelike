@@ -91,20 +91,20 @@ public class MapGenerator {
 			int roomADoorLength = roomA.prefab.doorPositions.Length;
 			int roomAX = roomA.prefab.doorPositions[rand.Next(roomADoorLength)].x;
 			int roomAY = roomA.prefab.doorPositions[rand.Next(roomADoorLength)].y;
-			Vector2Int pointA = new Vector2Int(roomA.x + roomAX, roomA.y + roomAY);
+			Vector2<int> pointA = new Vector2<int>(roomA.x + roomAX, roomA.y + roomAY);
 
 			int roomBDoorLength = roomB.prefab.doorPositions.Length;
 			int roomBX = roomB.prefab.doorPositions[rand.Next(roomBDoorLength)].x;
 			int roomBY = roomB.prefab.doorPositions[rand.Next(roomBDoorLength)].y;
-			Vector2Int pointB = new Vector2Int(roomB.x + roomBX, roomB.y + roomBY);
+			Vector2<int> pointB = new Vector2<int>(roomB.x + roomBX, roomB.y + roomBY);
 			tiles = CreateCorridor(pointA, pointB, tiles);
 		}
 		return tiles;
 	}
 
-	private AsciiTile[,] CreateCorridor(Vector2Int to, Vector2Int from, AsciiTile[,] tiles) {
+	private AsciiTile[,] CreateCorridor(Vector2<int> to, Vector2<int> from, AsciiTile[,] tiles) {
 		List<Node> openSet = new List<Node>();
-		HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
+		HashSet<Vector2<int>> closedSet = new HashSet<Vector2<int>>();
 
 		openSet.Add(new Node(from, null, 0, Node.Heuristic(from, to)));
 
@@ -116,7 +116,7 @@ public class MapGenerator {
 				Node pathNode = current;
 				char c = '.';
 				while (pathNode != null) {
-					Vector2Int p = pathNode.pos;
+					Vector2<int> p = pathNode.pos;
 					if (tiles[p.x, p.y].Type == TileType.EMPTY) {
 						tiles[p.x, p.y] = new AsciiTile {
 							Character = c,
@@ -133,7 +133,7 @@ public class MapGenerator {
 			openSet.Remove(current);
 			closedSet.Add(current.pos);
 
-			foreach (Vector2Int neighbor in Node.GetNeighbors(current.pos)) {
+			foreach (Vector2<int> neighbor in Node.GetNeighbors(current.pos)) {
 				if (!Node.InBounds(neighbor, _mapWidth, _mapHeight) || closedSet.Contains(neighbor))
 					continue;
 
