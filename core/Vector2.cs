@@ -16,7 +16,7 @@ public struct Vector2<T> where T : INumber<T> {
 
 	public static bool operator !=(Vector2<T> a, Vector2<T> b) => !(a == b);
 
-	public override bool Equals(object obj) => obj is Vector2<T> other && this == other;
+	public readonly override bool Equals(object obj) => obj is Vector2<T> other && this == other;
 
-	public override int GetHashCode() => HashCode.Combine(x, y);
+	public readonly override int GetHashCode() => HashCode.Combine(x, y);
 }
