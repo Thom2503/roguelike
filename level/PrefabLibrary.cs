@@ -13,8 +13,8 @@ public static class PrefabLibrary {
 		LoadPrefabs();
 	}
 
-	//TODO: add entrances
 	private static void LoadPrefabs() {
+		string f = ((char)24).ToString();
 		tilePrefabs.Add(new TilePrefab(
 			"Circled Bathhouse",
 			[
@@ -30,7 +30,7 @@ public static class PrefabLibrary {
 				"#...........#",
 				"######.######",
 			],
-			[(5, 8)],
+			[(6, 10)],
 			["bath", "water", "ruins"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -48,7 +48,7 @@ public static class PrefabLibrary {
 				"#.............#",
 				"#######.#######",
 			],
-			[(5, 8)],
+			[(7, 10)],
 			["bath", "water", "ruins"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -66,7 +66,7 @@ public static class PrefabLibrary {
 				"#.........#",
 				"#####.#####",
 			],
-			[(5, 8), (5, 0), (0, 4), (10, 4)],
+			[(5, 10), (5, 0), (0, 5), (10, 5)],
 			["bath", "water"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -86,7 +86,7 @@ public static class PrefabLibrary {
 				"#...........#",
 				"######.######",
 			],
-			[(5, 8)],
+			[(6, 12)], // bottom entrance
 			["temple", "olympians", "wild"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -104,7 +104,7 @@ public static class PrefabLibrary {
 				"#...........#",
 				"##.###.####.#",
 			],
-			[(5, 8), (5, 0), (0, 4), (10, 4)],
+			[(6, 10), (6, 0), (0, 5), (12, 5)],
 			["temple", "warriors", "olympians"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -124,7 +124,7 @@ public static class PrefabLibrary {
 				"#...........#",
 				"######.######",
 			],
-			[(5, 8)],
+			[(6, 12)],
 			["temple", "olympians", "wild", "warriors", "underworld"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -144,10 +144,9 @@ public static class PrefabLibrary {
 				"#.....#..#........#",
 				"#######..##########",
 			],
-			[(5, 8)],
+			[(6, 12)],
 			["villa", "big"]
 		));
-		string f = ((char)24).ToString();
 		tilePrefabs.Add(new TilePrefab(
 			"Garden Villa",
 			[
@@ -167,7 +166,7 @@ public static class PrefabLibrary {
 				"#......#.....#.....#",
 				"#########...########",
 			],
-			[(5, 8)],
+			[(10, 14)],
 			["villa", "big", "garden"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -184,7 +183,7 @@ public static class PrefabLibrary {
 				"#.0#0.#.....#.0#0.#",
 				"########...########",
 			],
-			[(5, 8)],
+			[(8, 9)],
 			["catacombs", "center"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -206,10 +205,10 @@ public static class PrefabLibrary {
 				"#...................#    ",
 				"########...##########    ",
 			],
-			[(5, 8)],
+			[(12, 14)],
 			["catacombs", "rooms"]
 		));
-	}
+}
 
 	public static TilePrefab? GetRandomByTag(string tag) {
 		Random random = new Random();
