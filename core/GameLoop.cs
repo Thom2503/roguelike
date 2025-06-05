@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using roguelike.action;
 using roguelike.player;
-using roguelike.ai;
-using System;
 
 namespace roguelike.core;
 
 public class GameLoop {
-	private List<Actor> _actors = new List<Actor>();
+	private readonly List<Actor> _actors = [];
 	private int _currentActor = 0;
 
 	public static GameLoop instance;
@@ -28,7 +26,7 @@ public class GameLoop {
 				action = result.alternative;
 				continue;
 			}
-			if (result.succeeded || !(actor is Player)) {
+			if (result.Succeeded || !(actor is Player)) {
 				_currentActor = (_currentActor + 1) % _actors.Count;
 			}
 			break;

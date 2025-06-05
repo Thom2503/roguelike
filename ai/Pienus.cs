@@ -19,7 +19,7 @@ public class Pienus : Actor {
 		};
 	}
 
-	private Actor? GetPlayer() {
+	private static Actor? GetPlayer() {
 		foreach (var actor in GameLoop.instance.GetActors()) {
 			if (actor is roguelike.player.Player) {
 				return actor;

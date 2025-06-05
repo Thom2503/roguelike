@@ -19,12 +19,12 @@ public class Node {
 	}
 
 	public static List<Vector2<int>> GetNeighbors(Vector2<int> pos) {
-		List<Vector2<int>> result = new List<Vector2<int>> {
+		List<Vector2<int>> result = [
 			new Vector2<int>(pos.x + 1, pos.y),
 			new Vector2<int>(pos.x - 1, pos.y),
 			new Vector2<int>(pos.x, pos.y + 1),
 			new Vector2<int>(pos.x, pos.y - 1)
-		};
+		];
 		return result;
 	}
 

@@ -7,7 +7,7 @@ using System;
 namespace roguelike.level;
 
 public static class PrefabLibrary {
-	public static readonly List<TilePrefab> tilePrefabs = new List<TilePrefab>();
+	public static readonly List<TilePrefab> tilePrefabs = [];
 
 	static PrefabLibrary() {
 		LoadPrefabs();
