@@ -34,6 +34,7 @@ public class Engine : Game {
 		Graphics = new GraphicsDeviceManager(this);
 		Content.RootDirectory = "Content";
 		IsMouseVisible = true;
+
 		player = new Player("Gamer", 100, 2, 2);
 		pienus = new Pienus("Pienus", 100, player.x - 1, player.y - 1);
 		playerActions = new Queue<GameAction>();
@@ -48,6 +49,9 @@ public class Engine : Game {
 		generator = new MapGenerator();
 		tiles = generator.GenerateMap();
 		baseMapTiles = Map.CloneTiles(tiles);
+
+		player.tiles = baseMapTiles;
+
 		gameLoop = new GameLoop();
 		GameLoop.instance = gameLoop;
 		gameLoop.AddActor(player);
@@ -55,6 +59,7 @@ public class Engine : Game {
 		foreach (Actor monster in monsters) {
 			gameLoop.AddActor(monster);
 		}
+
 		base.Initialize();
 	}
 

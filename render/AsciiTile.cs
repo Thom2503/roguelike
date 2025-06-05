@@ -8,4 +8,5 @@ public class AsciiTile {
 	public Color Foreground;
 	public Color Background;
 	public TileType Type = TileType.EMPTY;
+	public bool IsWalkable = true;
 };

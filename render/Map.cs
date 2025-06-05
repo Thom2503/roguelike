@@ -64,7 +64,8 @@ public class Map {
 					Character = t.Character,
 					Foreground = t.Foreground,
 					Background = t.Background,
-					Type = t.Type
+					Type = t.Type,
+					IsWalkable = t.IsWalkable,
 				};
 			}
 		}

@@ -19,6 +19,7 @@ public class MapGenerator {
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
 	private const int _maxAttempts = 100;
+	private static readonly HashSet<char> _nonWalkableTiles = ['#', 'O'];
 
 	public MapGenerator() {
 		for (int i = 0; i < _tiles.GetLength(0); i++)
@@ -59,7 +60,8 @@ public class MapGenerator {
 							Character = c,
 							Foreground = GetForeground(c),
 							Background = GetBackground(c),
-							Type = GetTileType(c)
+							Type = GetTileType(c),
+							IsWalkable = !_nonWalkableTiles.Contains(c),
 						};
 					}
 				}
@@ -122,7 +124,8 @@ public class MapGenerator {
 							Character = c,
 							Foreground = GetForeground(c),
 							Background = GetBackground(c),
-							Type = TileType.TILE_FLOOR
+							Type = TileType.TILE_FLOOR,
+							IsWalkable = !_nonWalkableTiles.Contains(c),
 						};
 					}
 					pathNode = pathNode.parent;
