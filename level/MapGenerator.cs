@@ -15,7 +15,7 @@ public class MapGenerator {
 	};
 
 	private readonly AsciiTile[,] _tiles = new AsciiTile[_mapWidth, _mapHeight]; 
-	private List<PrefabRoom> prefabRooms = new List<PrefabRoom>();
+	private readonly List<PrefabRoom> prefabRooms = [];
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
 	private const int _maxAttempts = 100;
