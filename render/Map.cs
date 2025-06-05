@@ -25,14 +25,20 @@ public class Map {
 		}
 	}
 
-	public void Draw(GameTime gameTime, Engine engine) {
+	public void Draw(GameTime gameTime, Engine engine, Point cameraPosition, int viewWidth, int viewHeight) {
 		engine.Graphics.GraphicsDevice.Clear(Color.Black);
 
 		engine.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
-		for (int y = 0; y < _tiles.GetLength(1); y++) {
-			for (int x = 0; x < _tiles.GetLength(0); x++) {
-				AsciiTile tile = _tiles[x, y];
+		for (int y = 0; y < viewHeight; y++) {
+			for (int x = 0; x < viewWidth; x++) {
+				int mapX = cameraPosition.X + x;
+				int mapY = cameraPosition.Y + y;
+
+				if (mapX < 0 || mapX >= _tiles.GetLength(0) || mapY < 0 || mapY >= _tiles.GetLength(1))
+					return;
+
+				AsciiTile tile = _tiles[mapX, mapY];
 
 				Rectangle destRect = new Rectangle(x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight);
 				Rectangle srcRect = GetCharSourceRect(tile.Character);

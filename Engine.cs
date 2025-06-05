@@ -28,6 +28,10 @@ public class Engine : Game {
 	private GameLoop gameLoop;
 	private KeyboardState _prevKeyboardState;
 
+	private Point cameraPosition = Point.Zero;
+	private const int ViewportWidthInTiles = 60;
+	private const int ViewportHeightInTiles = 40;
+
 	public Engine() {
 		Window.AllowUserResizing = true;
 		Window.ClientSizeChanged += new EventHandler<EventArgs>(WindowClientSizeChanged);
@@ -71,6 +75,11 @@ public class Engine : Game {
 		if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 			Exit();
 
+		int halfWidth = ViewportWidthInTiles / 2;
+		int halfHeight = ViewportHeightInTiles / 2;
+		cameraPosition.X = Math.Clamp(player.x - halfWidth, 0, 150 - ViewportWidthInTiles);
+		cameraPosition.Y = Math.Clamp(player.y - halfHeight, 0, 60 - ViewportHeightInTiles);
+
 		var keyboardState = Keyboard.GetState();
 		player.SetInput(keyboardState, _prevKeyboardState);
 		_prevKeyboardState = keyboardState;
@@ -89,7 +98,7 @@ public class Engine : Game {
 
 		map = new Map(tiles);
 		map.LoadContent(this);
-		map.Draw(gameTime, this);
+		map.Draw(gameTime, this, cameraPosition, ViewportWidthInTiles, ViewportHeightInTiles);
 	}
 
 	private void DrawActors() {
@@ -99,8 +108,6 @@ public class Engine : Game {
 			 }
 		}
 	}
-
-
 
 	private void WindowClientSizeChanged(object sender, EventArgs e) {}
 }
