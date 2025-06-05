@@ -4,6 +4,7 @@ using roguelike.render;
 using Microsoft.Xna.Framework;
 using roguelike.action;
 using Microsoft.Xna.Framework.Input;
+using roguelike.ai;
 
 namespace roguelike.player;
 
@@ -62,7 +63,7 @@ public class Player : Actor {
 
 	private bool GetActorAt(int x, int y) {
 		foreach (var actor in GameLoop.instance.GetActors()) {
-			if (actor != this && actor.x == x && actor.y == y)
+			if (actor != this && !(actor is Pienus) && actor.x == x && actor.y == y)
 				return false;
 		}
 		return true;
