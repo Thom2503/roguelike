@@ -19,7 +19,7 @@ public class MapGenerator {
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
 	private const int _maxAttempts = 100;
-	private static readonly HashSet<char> _nonWalkableTiles = ['#', 'O'];
+	private static readonly HashSet<char> _nonWalkableTiles = ['#', 'O', 'è'];
 
 	public MapGenerator() {
 		for (int i = 0; i < _tiles.GetLength(0); i++)
