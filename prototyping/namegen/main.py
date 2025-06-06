@@ -76,7 +76,7 @@ class RandomName():
         available_chars_set = set()
 
         with open(self._file_path, "r", encoding="utf-8") as file:
-            lines = file.readlines()
+            lines = list(file.read().split(' '))
 
         for line in lines:
             if no_whitespace_skip:
