@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using roguelike.core;
+using System.Linq;
 
 namespace roguelike.level;
 
@@ -207,6 +208,11 @@ public class MapGenerator {
 	};
 
 
-	private TilePrefab GetRandomPrefab() => PrefabLibrary.tilePrefabs[new Random().Next(PrefabLibrary.tilePrefabs.Count)];
+	private TilePrefab GetRandomPrefab() {
+		TilePrefab prefab = PrefabLibrary.tilePrefabs[new Random().Next(PrefabLibrary.tilePrefabs.Count)];
+		if (prefab.tags.Contains("temple") && this.prefabRooms.Any(room => room.prefab.tags.Contains("temple")))
+			return GetRandomPrefab();
+		return prefab;
+	}
 
 }

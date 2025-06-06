@@ -86,7 +86,7 @@ public static class PrefabLibrary {
 				"#...........#",
 				"######.######",
 			],
-			[(6, 12)], // bottom entrance
+			[(6, 12)],
 			["temple", "olympians", "wild"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -166,12 +166,12 @@ public static class PrefabLibrary {
 		tilePrefabs.Add(new TilePrefab(
 			"House two",
 			[
-				"##################",
-				$"#....#.{f},,{f},,.#....#",
-				$"#......,{f},,{f},......#",
-				$"#....#.,,,{f},,.#....#",
-				$"#......,,{f},{f},......#",
-				$"#....#.,{f},,,{f}.#....#",
+				"###################",
+				$"#....#.{f},,{f},,.#.....#",
+				$"#......,{f},,{f},.......#",
+				$"#....#.,,,{f},,.#.....#",
+				$"#......,,{f},{f},.......#",
+				$"#....#.,{f},,,{f}.#.....#",
 				"###.###############",
 				"#.................#",
 				"#.................#",
@@ -182,7 +182,7 @@ public static class PrefabLibrary {
 				"#.....#..#........#",
 				"#######..##########",
 			],
-			[(6, 12)],
+			[(7, 14)],
 			["house", "big", "backyard"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -283,7 +283,7 @@ public static class PrefabLibrary {
 				"#.....#....#...,,,,,.#..#",
 				"############..###########",
 			],
-			[(6, 12)],
+			[(12, 12)],
 			["inn", "big", "garden"]
 		));
 		tilePrefabs.Add(new TilePrefab(
@@ -312,7 +312,7 @@ public static class PrefabLibrary {
 				"#.........#....#.........#",
 				"############..############",
 			],
-			[(6, 12)],
+			[(12, 21), (25, 8)],
 			["inn", "big", "baths"]
 		));
 }
