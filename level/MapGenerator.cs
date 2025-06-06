@@ -15,7 +15,7 @@ public class MapGenerator {
 	};
 
 	private readonly AsciiTile[,] _tiles = new AsciiTile[_mapWidth, _mapHeight]; 
-	private readonly List<PrefabRoom> prefabRooms = [];
+	private List<PrefabRoom> prefabRooms = [];
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
 	private const int _maxAttempts = 100;
@@ -47,8 +47,8 @@ public class MapGenerator {
 		for (int attempt = 0; attempt < _maxAttempts; attempt++) {
 			TilePrefab prefab = GetRandomPrefab();
 			Random rand = new Random();
-			int x = rand.Next(0, _mapWidth - prefab.Width);
-			int y = rand.Next(0, _mapHeight - prefab.Height);
+			int x = rand.Next(1, _mapWidth - prefab.Width - 1);
+			int y = rand.Next(1, _mapHeight - prefab.Height - 1);
 
 			if (!DoesRoomOverlap(x, y, prefab)) {
 				for (int i = 0; i < prefab.Height; i++) {
@@ -76,8 +76,8 @@ public class MapGenerator {
 
 	private bool DoesRoomOverlap(int x, int y, TilePrefab prefab) {
 		foreach (PrefabRoom room in prefabRooms) {
-			if (x + prefab.Width > room.x && x < room.x + room.prefab.Width &&
-			    y + prefab.Height > room.y && y < room.y + room.prefab.Height) {
+			if (x + prefab.Width > room.x - 1 && x < room.x + room.prefab.Width + 1 &&
+			    y + prefab.Height > room.y - 1 && y < room.y + room.prefab.Height + 1) {
 				return true;
 			}
 		}
@@ -141,7 +141,7 @@ public class MapGenerator {
 					continue;
 
 				if (tiles[neighbor.x, neighbor.y].Type != TileType.EMPTY &&
-				    tiles[neighbor.x, neighbor.y].Type != TileType.TILE_FLOOR) // Allow going through corridors
+				    tiles[neighbor.x, neighbor.y].Type != TileType.TILE_FLOOR)
 					continue;
 
 				int tentativeG = current.G + 1;
