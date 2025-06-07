@@ -20,7 +20,7 @@ public class MapGenerator {
 	private const int _mapWidth = 150;
 	private const int _mapHeight = 60;
 	private const int _maxAttempts = 100;
-	private static readonly HashSet<char> _nonWalkableTiles = ['#', 'O', 'è'];
+	private static readonly HashSet<char> _nonWalkableTiles = ['#', 'O', 'è', 'Ò', 'ê'];
 
 	public MapGenerator() {
 		for (int i = 0; i < _tiles.GetLength(0); i++)
@@ -166,6 +166,9 @@ public class MapGenerator {
 		'è' => new Color(120, 130, 100),
 		',' => new Color(80, 150, 90),
 		'0' => new Color(160, 120, 100),
+		'Ò' => new Color(184, 134, 11),
+		'õ' => new Color(255, 255, 224),
+		'ê' => new Color(200, 160, 255),
 		(char)24 => new Color(220, 100, 160),
 		' ' => Color.Black,
 		_ => new Color(130, 110, 100)
@@ -178,6 +181,9 @@ public class MapGenerator {
 		'è' => new Color(40, 45, 30),
 		',' => new Color(30, 50, 30),
 		'0' => new Color(50, 35, 30),
+		'Ò' => new Color(30, 30, 30),
+		'õ' => new Color(48, 25, 52),
+		'ê' => new Color(20, 15, 40),
 		((char)24) => new Color(45, 30, 40),
 		' ' => Color.Black,
 		_ => new Color(20, 20, 20)
@@ -190,6 +196,9 @@ public class MapGenerator {
 		'è' => TileType.TILE_STATUE,
 		',' => TileType.TILE_GRASS,
 		'0' => TileType.TILE_TOMB,
+		'Ò' => TileType.TILE_BUREAU,
+		'õ' => TileType.TILE_SCROLL,
+		'ê' => TileType.TILE_LAMP,
 		((char)24) => TileType.TILE_FLOWER,
 		' ' => TileType.EMPTY,
 		_ => TileType.TILE_FLOOR
@@ -202,6 +211,9 @@ public class MapGenerator {
 		TileType.TILE_STATUE => 'è',
 		TileType.TILE_GRASS => ',',
 		TileType.TILE_TOMB => '0',
+		TileType.TILE_BUREAU => 'Ò',
+		TileType.TILE_SCROLL => 'õ',
+		TileType.TILE_LAMP => 'ê',
 		TileType.TILE_FLOWER => ((char)24),
 		TileType.EMPTY => ' ', 
 		_ => ' '
@@ -211,6 +223,8 @@ public class MapGenerator {
 	private TilePrefab GetRandomPrefab() {
 		TilePrefab prefab = PrefabLibrary.tilePrefabs[new Random().Next(PrefabLibrary.tilePrefabs.Count)];
 		if (prefab.tags.Contains("temple") && this.prefabRooms.Any(room => room.prefab.tags.Contains("temple")))
+			return GetRandomPrefab();
+		if (prefab.tags.Contains("bath") && this.prefabRooms.Count(room => room.prefab.tags.Contains("bath")) > 3)
 			return GetRandomPrefab();
 		return prefab;
 	}

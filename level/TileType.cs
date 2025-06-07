@@ -15,5 +15,8 @@ public enum TileType {
 	TILE_GRASS,
 	TILE_FLOWER,
 	TILE_TOMB,
+	TILE_SCROLL,
+	TILE_BUREAU,
+	TILE_LAMP,
 	EMPTY,
 }
