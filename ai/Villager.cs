@@ -10,6 +10,8 @@ using roguelike.player;
 
 namespace roguelike.ai;
 
+//TODO: Eventually want to make it that they have goals and habits like villagers in minecraft
+//      maybe even add some sort of alligment with stores etcetera
 public class Villager : Actor {
 	public static readonly Color mForeground = Color.SteelBlue;
 	public static readonly Color mBackground = Color.SaddleBrown;
@@ -21,9 +23,10 @@ public class Villager : Actor {
 	private readonly int _beginX;
 	private readonly int _beginY;
 
-	private static int _movesMade = 0;
+	private int _movesMade = 0;
 	private const int _maxMovesMade = 5;
-	private static bool _wanderBack = false;
+	private bool _wanderBack = false;
+	private Vector2<int>? _dest = null;
 
 	public Villager(string name, int maxHealth, int x, int y) : base(name, maxHealth, x, y) {
 		bool gender = rand.Next(0, 100) < 50; // 50 50 chance of being a woman or man
@@ -57,16 +60,60 @@ public class Villager : Actor {
 	}
 
 	public override GameAction GetGameAction() {
-		if (_movesMade <= _maxMovesMade) {
-			int destX = _wanderBack ? _beginX : x + rand.Next(10);
-			int destY = _wanderBack ? _beginY : y + rand.Next(10);
-			Vector2<int> dest = new Vector2<int>(destX, destY);
-			Vector2<int> from = new Vector2<int>(x, y);
-
-			_movesMade++;
+		if (_dest == null) {
+			if (_wanderBack) {
+				_dest = new Vector2<int>(_beginX, _beginY);
+			} else {
+				int destX, destY;
+				// weird fix but avoids getting stuck at point zero (ie _beginX and _beginY)
+				do {
+					destX = x + rand.Next(-5, 6);
+					destY = y + rand.Next(-5, 6);
+				} while (destX == x && destY == y);
+				_dest = new Vector2<int>(destX, destY);
+			}
 		}
-		_wanderBack = true;
-		_movesMade = 0;
+
+		int dx = _dest.Value.x - this.x;
+		int dy = _dest.Value.y - this.y;
+
+		int stepX = Math.Sign(dx);
+		int stepY = Math.Sign(dy);
+
+		if (dx == 0 && dy == 0) {
+			IncrementMoves();
+			_dest = null;
+			return new WaitAction(this);
+		}
+
+		if (dx != 0 && dy != 0) {
+			if (CanMove(x + stepX, y + stepY)) {
+				IncrementMoves();
+				return new MoveAction(stepX, stepY, this);
+			}
+		}
+	
+		if (Math.Abs(dx) > Math.Abs(dy) && CanMove(x + stepX, y)) {
+			IncrementMoves();
+			return new MoveAction(stepX, 0, this);
+		}
+	
+		if (Math.Abs(dy) > Math.Abs(dx) && CanMove(x, y + stepY)) {
+			IncrementMoves();
+			return new MoveAction(0, stepY, this);
+		}
+
 		return new WaitAction(this);
+	}
+
+	private void IncrementMoves() {
+		_movesMade++;
+		if (_wanderBack && x == _beginX && y == _beginY) {
+			_wanderBack = false;
+			_movesMade = 0;
+		} else if (!_wanderBack && _movesMade >= _maxMovesMade) {
+			_wanderBack = true;
+			_movesMade = 0;
+		}
 	}
 }
