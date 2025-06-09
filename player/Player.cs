@@ -61,7 +61,7 @@ public class Player : Actor {
 
 	private bool GetActorAt(int x, int y) {
 		foreach (var actor in GameLoop.instance.GetActors()) {
-			if (actor != this && !(actor is Pienus) && actor.x == x && actor.y == y)
+			if (actor != this && actor is not Pienus && actor.x == x && actor.y == y)
 				return false;
 		}
 		return true;
