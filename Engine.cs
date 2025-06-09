@@ -30,6 +30,7 @@ public class Engine : Game {
 	private readonly Pienus pienus;
 	private GameLoop gameLoop;
 	private KeyboardState _prevKeyboardState;
+	private readonly NameGenerator nameGenerator = new NameGenerator();
 
 	private Point cameraPosition = Point.Zero;
 	private const int ViewportWidthInTiles = 60;
@@ -42,6 +43,9 @@ public class Engine : Game {
 		Content.RootDirectory = "Content";
 		IsMouseVisible = true;
 
+		nameGenerator.InputFile("./Content/names.txt");
+		nameGenerator.ProcessFile();
+
 		player = new Player("Gamer", 100, 2, 2);
 		pienus = new Pienus("Pienus", 100, player.x - 1, player.y - 1);
 		playerActions = new Queue<GameAction>();
@@ -51,8 +55,8 @@ public class Engine : Game {
 			new Monster("Mummy2", 20, 6, 8),
 		};
 		villagers = new List<Villager>() {
-			new Villager("Mummy", 20, 20, 10),
-			new Villager("Mummy2", 20, 22, 15),
+			new Villager(nameGenerator.OutputName(), 20, 20, 10),
+			new Villager(nameGenerator.OutputName(), 20, 22, 15),
 		};
 	}
 
