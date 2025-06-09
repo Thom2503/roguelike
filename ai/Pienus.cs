@@ -3,6 +3,7 @@ using roguelike.items;
 using roguelike.render;
 using Microsoft.Xna.Framework;
 using roguelike.action;
+using roguelike.player;
 using System;
 
 #nullable enable
@@ -21,7 +22,7 @@ public class Pienus : Actor {
 
 	private static Actor? GetPlayer() {
 		foreach (var actor in GameLoop.instance.GetActors()) {
-			if (actor is roguelike.player.Player) {
+			if (actor is Player) {
 				return actor;
 			}
 		}

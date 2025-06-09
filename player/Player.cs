@@ -11,8 +11,6 @@ namespace roguelike.player;
 public class Player : Actor {
 	private KeyboardState current, previous;
 
-	public AsciiTile[,] tiles;
-
 	public Player(string name, int maxHealth, int x, int y) : base(name, maxHealth, x, y) {
 		inventory = new Inventory();
 		tile = new AsciiTile {
@@ -23,7 +21,7 @@ public class Player : Actor {
 	}
 
 	public override bool CanMove(int x, int y) {
-		if (tiles == null)
+		if (Engine.tileMap == null)
 			return false;
 		if (!CanEnterTile(x, y))
 			return false;
@@ -59,7 +57,7 @@ public class Player : Actor {
 		return null;
 	}
 
-	private bool CanEnterTile(int x, int y) => tiles[x, y].IsWalkable;
+	private static bool CanEnterTile(int x, int y) => Engine.tileMap[x, y].IsWalkable;
 
 	private bool GetActorAt(int x, int y) {
 		foreach (var actor in GameLoop.instance.GetActors()) {

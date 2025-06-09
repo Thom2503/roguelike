@@ -20,10 +20,13 @@ public class Engine : Game {
 	public AsciiTile[,] tiles = new AsciiTile[150, 60];
 	private AsciiTile[,] baseMapTiles;
 
+	public static AsciiTile[,] tileMap;
+
 	private Map map;
 	private MapGenerator generator;
 	private readonly Player player;
 	private readonly List<Monster> monsters;
+	private readonly List<Villager> villagers;
 	private readonly Pienus pienus;
 	private GameLoop gameLoop;
 	private KeyboardState _prevKeyboardState;
@@ -47,14 +50,17 @@ public class Engine : Game {
 			new Monster("Mummy", 20, 4, 5),
 			new Monster("Mummy2", 20, 6, 8),
 		};
+		villagers = new List<Villager>() {
+			new Villager("Mummy", 20, 20, 10),
+			new Villager("Mummy2", 20, 22, 15),
+		};
 	}
 
 	protected override void Initialize() {
 		generator = new MapGenerator();
 		tiles = generator.GenerateMap();
 		baseMapTiles = Map.CloneTiles(tiles);
-
-		player.tiles = baseMapTiles;
+		tileMap = baseMapTiles;
 
 		gameLoop = new GameLoop();
 		GameLoop.instance = gameLoop;
@@ -62,6 +68,9 @@ public class Engine : Game {
 		gameLoop.AddActor(pienus);
 		foreach (Actor monster in monsters) {
 			gameLoop.AddActor(monster);
+		}
+		foreach (Actor villager in villagers) {
+			gameLoop.AddActor(villager);
 		}
 
 		base.Initialize();

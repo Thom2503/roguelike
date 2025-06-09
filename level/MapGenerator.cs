@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using roguelike.core;
 using System.Linq;
+using roguelike.ai;
 
 namespace roguelike.level;
 
@@ -170,6 +171,8 @@ public class MapGenerator {
 		'õ' => new Color(255, 255, 224),
 		'ê' => new Color(200, 160, 255),
 		(char)24 => new Color(220, 100, 160),
+		(char)11 => Villager.mForeground,
+		(char)12 => Villager.fForeground,
 		' ' => Color.Black,
 		_ => new Color(130, 110, 100)
 	};
@@ -185,6 +188,8 @@ public class MapGenerator {
 		'õ' => new Color(48, 25, 52),
 		'ê' => new Color(20, 15, 40),
 		((char)24) => new Color(45, 30, 40),
+		(char)11 => Villager.mBackground,
+		(char)12 => Villager.fBackground,
 		' ' => Color.Black,
 		_ => new Color(20, 20, 20)
 	};
@@ -200,6 +205,8 @@ public class MapGenerator {
 		'õ' => TileType.TILE_SCROLL,
 		'ê' => TileType.TILE_LAMP,
 		((char)24) => TileType.TILE_FLOWER,
+		((char)11) => TileType.TILE_VILLAGER_MALE,
+		((char)12) => TileType.TILE_VILLAGER_FEMALE,
 		' ' => TileType.EMPTY,
 		_ => TileType.TILE_FLOOR
 	};
@@ -215,6 +222,8 @@ public class MapGenerator {
 		TileType.TILE_SCROLL => 'õ',
 		TileType.TILE_LAMP => 'ê',
 		TileType.TILE_FLOWER => ((char)24),
+		TileType.TILE_VILLAGER_MALE => ((char)11),
+		TileType.TILE_VILLAGER_FEMALE => ((char)12),
 		TileType.EMPTY => ' ', 
 		_ => ' '
 	};
