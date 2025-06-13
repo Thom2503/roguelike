@@ -46,7 +46,13 @@ public class Villager : Actor {
 	private static TileType GenderTileType(bool gender) => gender ? TileType.TILE_VILLAGER_MALE : TileType.TILE_VILLAGER_FEMALE;
 
 	public override bool CanMove(int x, int y) {
-		return base.CanMove(x, y);
+		if (Engine.tileMap == null)
+			return false;
+		if (!CanEnterTile(x, y))
+			return false;
+		if (!GetActorAt(x, y))
+			return false;
+		return true;
 	}
 
 	private static bool CanEnterTile(int x, int y) => Engine.tileMap[x, y].IsWalkable;
@@ -93,16 +99,21 @@ public class Villager : Actor {
 			}
 		}
 	
-		if (Math.Abs(dx) > Math.Abs(dy) && CanMove(x + stepX, y)) {
-			IncrementMoves();
-			return new MoveAction(stepX, 0, this);
+		if (Math.Abs(dx) > Math.Abs(dy)) {
+			if (CanMove(x + stepX, y)) {
+				IncrementMoves();
+				return new MoveAction(stepX, 0, this);
+			}
 		}
 	
-		if (Math.Abs(dy) > Math.Abs(dx) && CanMove(x, y + stepY)) {
-			IncrementMoves();
-			return new MoveAction(0, stepY, this);
+		if (Math.Abs(dy) > Math.Abs(dx)) {
+			if (CanMove(x, y + stepY)) {
+				IncrementMoves();
+				return new MoveAction(stepX, 0, this);
+			}
 		}
 
+		_dest = null;
 		return new WaitAction(this);
 	}
 
